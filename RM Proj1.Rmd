@@ -1,4 +1,4 @@
-##"Motor Trend: Analysis MPG vs Transmission"
+##"Motor Trend: MPG vs Transmission"
 ```{r libraries, echo=FALSE, message=FALSE, warning=FALSE}
 library(car)
 library(Hmisc)
@@ -11,7 +11,9 @@ origmtcars <- mtcars
 mtcars$am <- as.factor(mtcars$am); mtcars$cyl <- as.factor(mtcars$cyl); mtcars$vs <- as.factor(mtcars$vs); mtcars$gear <- as.factor(mtcars$gear); mtcars$carb <- as.factor(mtcars$carb); levels(mtcars$am) <- c("Auto", "Manual")
 ```
 ###1. Executive Summary
-The objective of this report is to analyze if an automatic or manual transmission better for MPG for cars and if so, to quantify the MPG difference between the two models. For this the dataset mtcars was used, which was extracted from the 1974 Motor Trend US magazine. It comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973-74 models). From the analysis it is clear that Manual transmission is better than automatic, increasing mpg by 7.25 (95% confidence interval of (3.64, 10.85)) on a standalone basis. This increase drops to 2.94 mpg when considered with other variables, in a model in which all variables had signigicant t-statistic. 
+The objective of this report is to analyze if an automatic or manual transmission better for MPG for cars and if so, to quantify the MPG difference between the two models. For this the dataset mtcars was used, which was extracted from the 1974 Motor Trend US magazine. It comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973-74 models). From the analysis it is clear that Manual transmission is better than automatic, increasing MPG by 7.25 (95% confidence interval of (3.64, 10.85)) on a standalone basis. This increase drops to 2.94 MPG when considered with other variables, in a model in which all variables had signigicant t-statistic. 
+```{r code4}
+```
 ###2. Exploratory Analysis
 First pairwise plot the variables and also look at Correlation values. As in Figure 1 and correlation data, it looks like hp is correlated with (cyl, disp, vs, qsec) and wt with (cyl, disp, drat, hp). It looks like mpg has relationship with cyl, disp, hp, drat, wt, qsec, vs, am, gear and carb.
 ```{r EA, message=FALSE, warning=FALSE, echo=FALSE, results='hide'}
@@ -26,7 +28,7 @@ Perform a ttest to check mpg against transmission.The p-value is < 0.05 and 95% 
 t.test(mpg ~ am, paired = FALSE, data = mtcars)
 ```
 ###3.Model of MPG vs Transmission (Linear Regression)
-A boxplot of mpg vs AM, as shown in Figure 2, indicates a difference in means of MPG for the two variety of transmissions. It shows that manual cars have a better MPG than Automatic. A regression model of mpg vs AM is created as below. The confidence interval for Manual transmission is also generated.
+A boxplot of mpg vs AM, as shown in Figure 2, indicates a difference in means of MPG for the two variety of transmissions. It shows that manual cars have a better MPG than Automatic. A regression model of MPG vs AM is created as below. The confidence interval for Manual transmission is also generated.
 ```{r Basicregression, echo=FALSE, message=FALSE, warning=FALSE}
 fit <- lm(mpg~am, data = mtcars)
 p <- summary(fit, signif.stars = FALSE)
@@ -35,7 +37,7 @@ p$coefficients
 print(paste("Residual standard error:", round(p$sigma,2), " Multiple R-squared:", round(p$r.squared,2), " Adjusted R-squared:", round(p$adj.r.squared,2), "F-statistic:", round(p$fstatistic[1],2)))
 confint(fit, "amManual")
 ```
-The slope of AM is observed to be significant. As per the model, there is a 7.25 mpg increase in switch from Automatic to Manual transmission. The 95% confidence interval (3.64, 10.85) doesnot include 0. However, the adjusted R^2 is around 34%, and additional variables might need to be considered. 
+The slope of AM is observed to be significant. As per the model, there is a 7.25 MPG increase in switch from Automatic to Manual transmission. The 95% confidence interval (3.64, 10.85) doesnot include 0. However, the adjusted R^2 is around 34%, and hence additional variables might need to be considered. 
 ```{r code3}
 ```
 ###4. Model of MPG vs Multiple Variables (Multivariate Regression)
@@ -65,7 +67,7 @@ Residuals are plotted in Figure 3. We observe that residuals are normally distri
 ```{r code2}
 ```
 ###6. Conclusion
-On a standalone basis, there is a 7.25 mpg increase in switch from Automatic to Manual transmission, but this model clearly showed that other factors were missing. Considering other parameters, the best fit model showed that the increase drops to 2.94 mpg increase in switch from Automatic to Manual transmission. 
+On a standalone basis, there is a 7.25 MPG increase in switch from Automatic to Manual transmission, but this model clearly showed that other factors were missing. Considering other parameters, the best fit model showed that the increase drops to 2.94 MPG increase in switch from Automatic to Manual transmission. 
 ```{r code3}
 ```
 ###7. Appendix
